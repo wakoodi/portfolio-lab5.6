@@ -9,7 +9,7 @@ const usersRouter = require('./routes/users');
 const apiV1MessagesRouter = require('./routes/api/v1/messages')
 
 const mongoose = require('mongoose');
-mongoose.connect(config.get('Database.conn'), {
+mongoose.connect(process.env.dbconn || config.get('Database.conn'), {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false
