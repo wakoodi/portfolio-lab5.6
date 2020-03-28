@@ -36,8 +36,8 @@ const getOne = (req, res) =>{
 }
 
 const getOneByUser = (req, res) =>{
-    let user = req.params.user
-    Message.find({user: user}, (err, doc) =>{
+    let whoIsUser = req.params.user
+    Message.find({user: whoIsUser}, (err, doc) =>{
         if(!err){
             res.json({
                 "status" : "success",
@@ -52,8 +52,8 @@ const getOneByUser = (req, res) =>{
 
 const createOne =  (req, res) => {
     let message = new Message()
-    message.text = req.body.text
-    message.user = req.body.user
+    message.text = "nodejs isn’t hard, or is it?"
+    message.user = "Pikachu"
     message.save( (err, doc) =>{
         if(!err){
             res.json({
@@ -68,14 +68,14 @@ const createOne =  (req, res) => {
 }
 
 const updateOne = (req, res) => {
-    let text = req.body.text
+    let textUpdated = "updated"
     Message.findByIdAndUpdate({_id: req.params.id}, {text: text}, (err, doc) => {
         if(!err){
             res.json({
                 "status" : "success",
                 "data" : {
                     "message": `Updated message with id: .${req.params.id}`,
-                    "text" : doc
+                    "text" : textUpdated
                 }
             })
         }
@@ -88,7 +88,7 @@ const removeOne = (req, res) => {
             res.json({
                 "status" : "success",
                 "data" : {
-                    "message": "The message was removed"
+                    "message": "The message was removed and had id: " + req.params.id
                 }
             })
         }
