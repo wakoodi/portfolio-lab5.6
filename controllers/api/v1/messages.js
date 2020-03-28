@@ -36,7 +36,8 @@ const getOne = (req, res) =>{
 }
 
 const getOneByUser = (req, res) =>{
-    Message.find({user: req.params.user}, (err, doc) =>{
+    let user = req.params.user
+    Message.find({user: user}, (err, doc) =>{
         if(!err){
             res.json({
                 "status" : "success",
@@ -68,15 +69,13 @@ const createOne =  (req, res) => {
 
 const updateOne = (req, res) => {
     let text = req.body.text
-    let user = req.body.user
-    Message.findByIdAndUpdate({_id: req.params.id}, {text: text, user: user}, (err, doc) => {
+    Message.findByIdAndUpdate({_id: req.params.id}, {text: text}, (err, doc) => {
         if(!err){
             res.json({
                 "status" : "success",
                 "data" : {
                     "message": `Updated message with id: .${req.params.id}`,
-                    "text" : doc,
-                    "user" : user
+                    "text" : doc
                 }
             })
         }

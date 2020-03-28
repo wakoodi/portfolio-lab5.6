@@ -3,16 +3,21 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-
+const config = require('config');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const apiV1MessagesRouter = require('./routes/api/v1/messages')
 
 const mongoose = require('mongoose');
-mongoose.connect("mongodb://localhost:27017/messages6", {
+mongoose.connect(config.get('Database.conn'), {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useFindAndModify: false
 })
+
+//console.log(config.get('Database.conn'))
+//console.log(process.env.node_env) --> undefined = local
+
 const app = express();
 
 // view engine setup
